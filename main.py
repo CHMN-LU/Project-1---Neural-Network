@@ -146,10 +146,12 @@ class FNN():
         # A gradient has been computed for every weight and bias
         return grads_w, grads_b
 
-    def train_SGD(self, training_data, training_labels, batch_size, epochs, learning_rate):
+    def train_SGD(self, training_data, training_labels, batch_size, epochs, learning_rate, validation_data=None, validation_labels=None):
         # Take training data, mini-batch size, and number of epochs to train over
         # Epochs are complete passes over the data.
         # Also use a learning rate to scale the gradient shift
+        
+        # If validation_data is given, use it to evaluate training success after each epoch
         
         # Randomize training data and labels, keeping indices matching
         rand_inds = np.random.permutation(len(training_data))
@@ -200,6 +202,11 @@ class FNN():
                 for k in range(len(self.w)):
                     self.w[k] += -1*learning_rate*weight_gradient_sum[k] / current_batch_size
                     self.b[k] += -1*learning_rate*bias_gradient_sum[k] / current_batch_size
+            
+            # At the end of each epoch, evaluate training success if validation data is given
+            if validation_data is not None:
+                print(f"##################\nEpoch {e}:")
+                self.evaluate(validation_data, validation_labels, verbose=True)
             
     
     def evaluate(self, test_data, test_labels, verbose=False):

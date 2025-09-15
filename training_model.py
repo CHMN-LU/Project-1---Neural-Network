@@ -6,14 +6,14 @@ from data_loading import train_images, train_labels, validation_images, validati
 #print(train_images.shape[0], validation_images.shape[0])
 
 # Creates a feedforward network with 3 layers, input (28x28), hidden (16), output(10)
-network = FNN([784, 16, 10])
+network = FNN([784, 30, 10])
 
 # Training parameters
 batch_size = 100
 epochs = 10
 learning_rate = .25
 # Train the model
-network.train_SGD(train_images, train_labels, batch_size, epochs, learning_rate)
+network.train_SGD(train_images, train_labels, batch_size, epochs, learning_rate, validation_images, validation_labels)
 
 # Evaluate the model
 print("Model after training:")
