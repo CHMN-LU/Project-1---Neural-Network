@@ -214,11 +214,11 @@ class FNN():
         # Assume test_labels are ints of the correct output for the sample
         # Return an array of the model outputs on the testing data
         outputs = np.array([self.forward(sample.reshape(-1, 1)) for sample in test_data])
-        int_outputs = np.array([self.vector_to_label(vec) for vec in outputs])
+        #int_outputs = np.array([self.vector_to_label(vec) for vec in outputs])
         if verbose:
             #print(int_outputs)
             #print(test_labels)
-            correct_bools = int_outputs == test_labels
+            correct_bools = outputs == test_labels
             total_correct = np.sum(correct_bools)
             print(f"Performance on test data: {total_correct}/{len(correct_bools)}, {total_correct*100/len(correct_bools):.2f}% acc")
         return outputs
